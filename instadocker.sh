@@ -42,7 +42,7 @@ function loading_icon() {
 loading_icon 60 "Updating"
 
 
-sudo apt-get install ca-certificates curl
+sudo apt-get install ca-certificates curl -y
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -76,6 +76,6 @@ function loading_icon() {
     printf " \b\n"
 }
 
-loading_icon 60 "And finally, install docker"
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
+loading_icon 60 "And finally, install docker-ce and compose"
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose -y
 
