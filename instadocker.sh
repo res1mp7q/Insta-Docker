@@ -21,7 +21,7 @@ function loading_icon() {
     local load_interval="${1}"
     local loading_message="${2}"
     local elapsed=0
-    local loading_animation=( ▰▱▱▱▱▱▱ ▰▰▱▱▱▱▱ ▰▰▰▱▱▱▱ ▱▰▰▰▱▱▱ ▱▱▰▰▰▱▱ ▱▱▱▰▰▰▱ ▱▱▱▱▰▰▰ ▱▱▱▱▱▰▰ ▱▱▱▱▱▱▰ ▱▱▱▱▱▱▱ ▱▱▱▱▱▱▱ ▱▱▱▱▱▱▱ ▱▱▱▱▱▱▱ )
+    local loading_animation=( ⣾ ⣽ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷ )
 
     echo -n "${loading_message} "
 
@@ -32,7 +32,7 @@ function loading_icon() {
     while [ "${load_interval}" -ne "${elapsed}" ]; do
         for frame in "${loading_animation[@]}" ; do
             printf "%s\b" "${frame}"
-            sleep 0.25
+            sleep 0.2
         done
         elapsed=$(( elapsed + 1 ))
     done
@@ -53,7 +53,29 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
+sudo apt-get update
+function loading_icon() {
+    local load_interval="${1}"
+    local loading_message="${2}"
+    local elapsed=0
+    local loading_animation=( ⣾ ⣽ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷ )
 
-echo "And finally, install docker"
+    echo -n "${loading_message} "
+
+    # This part is to make the cursor not blink
+    # on top of the animation while it lasts
+    tput civis
+    trap "tput cnorm" EXIT
+    while [ "${load_interval}" -ne "${elapsed}" ]; do
+        for frame in "${loading_animation[@]}" ; do
+            printf "%s\b" "${frame}"
+            sleep 0.2
+        done
+        elapsed=$(( elapsed + 1 ))
+    done
+    printf " \b\n"
+}
+
+loading_icon 60 "And finally, install docker"
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
 
