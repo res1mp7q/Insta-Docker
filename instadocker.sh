@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Excelsior INSTA-DOCKER Script January 2024
 
