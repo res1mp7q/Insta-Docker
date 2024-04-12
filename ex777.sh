@@ -29,12 +29,19 @@ create_user() {
     # Turn off terminal echo
     stty -echo
 
-    # Take username as input
-    read -p "Enter username: " username
+    # Prompt for username
+    echo -n "Enter username: "
+    read -r username
 
     # Turn on terminal echo
     stty echo
     echo
+
+    # Check if username is empty
+    if [ -z "$username" ]; then
+        echo "Username cannot be empty. Exiting."
+        exit 1
+    fi
 
     # Create user with password
     sudo adduser $username
@@ -45,8 +52,9 @@ create_user() {
     # Turn off terminal echo
     stty -echo
 
-    # Take SSH public key as input
-    read -p "Enter SSH public key: " ssh_key
+    # Prompt for SSH public key
+    echo -n "Enter SSH public key: "
+    read -r ssh_key
 
     # Turn on terminal echo
     stty echo
