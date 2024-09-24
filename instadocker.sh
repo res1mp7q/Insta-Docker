@@ -78,4 +78,6 @@ function loading_icon() {
 
 loading_icon 60 "And finally, install docker-ce and compose"
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose -y
+sudo usermod -aG docker $USER
+exec su -l $USER
 
